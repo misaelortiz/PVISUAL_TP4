@@ -18,7 +18,6 @@ import pto2.aplicacion.modelo.dominio.RegistroNumero;
 @ViewScoped
 public class RegistroNumeroFormBean {
     private RegistroNumero registroNumero;
-    private double numero;
     
    public RegistroNumeroFormBean() {
        registroNumero = new RegistroNumero();
@@ -42,15 +41,6 @@ public class RegistroNumeroFormBean {
     /**
      * @return the numero
      */
-    public double getNumero() {
-        return numero;
-    }
-
-    /**
-     * @param numero the numero to set
-     */
-    public void setNumero(double numero) {
-        this.numero = numero;
-    }
+    
     
 }
