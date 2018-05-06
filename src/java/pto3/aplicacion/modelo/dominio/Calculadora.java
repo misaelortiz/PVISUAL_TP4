@@ -5,11 +5,13 @@
  */
 package pto3.aplicacion.modelo.dominio;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Alumno
  */
-public class Calculadora {
+public class Calculadora implements Serializable{
     private double numIngresado1;
     private double numIngresado2;
     private double resultado;
