@@ -12,25 +12,10 @@ import java.io.Serializable;
  * @author Alumno
  */
 public class Calculadora implements Serializable{
-    private double numIngresado1;
-    private double numIngresado2;
+    
     private double resultado;
 
-    public double getNumIngresado1() {
-        return numIngresado1;
-    }
-
-    public void setNumIngresado1(double numIngresado1) {
-        this.numIngresado1 = numIngresado1;
-    }
-
-    public double getNumIngresado2() {
-        return numIngresado2;
-    }
-
-    public void setNumIngresado2(double numIngresado2) {
-        this.numIngresado2 = numIngresado2;
-    }
+    
 
     public double getResultado() {
         return resultado;
@@ -40,19 +25,25 @@ public class Calculadora implements Serializable{
         this.resultado = resultado;
     }
     
-    public void suma (){
+    public double suma (double numIngresado1, double numIngresado2){
         resultado=numIngresado1+numIngresado2;
+        return resultado;
     }
-    public void restar(){
+    public double restar(double numIngresado1, double numIngresado2){
         resultado=numIngresado1-numIngresado2;
+        return resultado;
     }
-    public void multiplicar(){
+    public double multiplicar(double numIngresado1, double numIngresado2){
         resultado=numIngresado1*numIngresado2;
+        return resultado;
     }
-    public void dividir(){
+    public double dividir(double numIngresado1, double numIngresado2){
         resultado=numIngresado1/numIngresado2;
+        return resultado;
     }
-    public void potenciar(){
+    public double potenciar(double numIngresado1, double numIngresado2){
         resultado=Math.pow(numIngresado1, numIngresado2);
+        return resultado;
     }
+    
 }
