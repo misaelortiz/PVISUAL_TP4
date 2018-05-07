@@ -27,21 +27,21 @@
     <h:body>
         <p:panel>
             
-            <p:commandButton id="btnMaximo" value="MAXIMO"/>
-            <p:outputLabel id="lblMax" value =" El maximo es" />
+            <p:commandButton id="btnMaximo" value="MAXIMO" update="lblMax"/>
+            <p:outputLabel id="lblMax" value =" El maximo es #{registroNumeroFormBean.registroNumero.calcularMaximo()} " />
             
             
             
         </p:panel>
         <p:panel>
-            <p:commandButton id="btnMinimo" value="MINIMO"/>
-            <p:outputLabel id="lblMin" value =" El minimo es" />
+            <p:commandButton id="btnMinimo" value="MINIMO" update="lblMin"/>
+            <p:outputLabel id="lblMin" value =" El minimo es #{registroNumeroFormBean.registroNumero.calcularMenor()}"/>
             
         </p:panel>
         <p:panel>
             
-            <p:commandButton id="btnPromedio" value="PROMEDIO"/>
-            <p:outputLabel id="lblProm" value =" El promedio es" />
+            <p:commandButton id="btnPromedio" value="PROMEDIO" update="lblProm"/>
+            <p:outputLabel id="lblProm" value =" El promedio es #{registroNumeroFormBean.registroNumero.calcularPromedio()}"/>
             
         </p:panel>
     </h:body>
