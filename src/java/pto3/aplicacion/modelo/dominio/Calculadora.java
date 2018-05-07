@@ -12,38 +12,38 @@ import java.io.Serializable;
  * @author Alumno
  */
 public class Calculadora implements Serializable{
-    
-    private double resultado;
+    private int primerNumero;
+    private int segundoNumero;
 
-    
-
-    public double getResultado() {
-        return resultado;
+    /**
+     * @return the primerNumero
+     */
+    public int getPrimerNumero() {
+        return primerNumero;
     }
 
-    public void setResultado(double resultado) {
-        this.resultado = resultado;
+    public int sumar(){
+        return primerNumero + segundoNumero;
     }
     
-    public double suma (double numIngresado1, double numIngresado2){
-        resultado=numIngresado1+numIngresado2;
-        return resultado;
+    /**
+     * @param primerNumero the primerNumero to set
+     */
+    public void setPrimerNumero(int primerNumero) {
+        this.primerNumero = primerNumero;
     }
-    public double restar(double numIngresado1, double numIngresado2){
-        resultado=numIngresado1-numIngresado2;
-        return resultado;
+
+    /**
+     * @return the segundoNumero
+     */
+    public int getSegundoNumero() {
+        return segundoNumero;
     }
-    public double multiplicar(double numIngresado1, double numIngresado2){
-        resultado=numIngresado1*numIngresado2;
-        return resultado;
+
+    /**
+     * @param segundoNumero the segundoNumero to set
+     */
+    public void setSegundoNumero(int segundoNumero) {
+        this.segundoNumero = segundoNumero;
     }
-    public double dividir(double numIngresado1, double numIngresado2){
-        resultado=numIngresado1/numIngresado2;
-        return resultado;
-    }
-    public double potenciar(double numIngresado1, double numIngresado2){
-        resultado=Math.pow(numIngresado1, numIngresado2);
-        return resultado;
-    }
-    
 }

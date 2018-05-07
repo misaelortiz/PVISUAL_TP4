@@ -7,86 +7,211 @@ package pto3.aplicacion.controlador.beans.form;
 
 import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIInput;
+import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import pto3.aplicacion.modelo.dominio.Calculadora;
 
 /**
  *
  * @author Alumno
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class CalculadoraFormBean implements Serializable{
-    private Calculadora calculadora;
+    private int ingreso;
     private String mantisa;
+    private int operando1;
+    private int operando2;
+    private String op;
+    /**
+     * Creates a new instance of CalculadoraFormBean
+     */
+    public CalculadoraFormBean() {
+        mantisa  = new String();
+    }
 
+    public void registrarValorSeleccionado(){
+        FacesContext facesContext= FacesContext.getCurrentInstance();
+        String valorSeleccionado = facesContext.
+                getExternalContext().getRequestParameterMap().
+                get("valorPresionado");
+        String opSeleccionada = facesContext.
+                getExternalContext().getRequestParameterMap().
+                get("valorOperador");
+         
+        if (valorSeleccionado == null){
+            ingreso  = ingreso + 0;
+        }
+        else {
+            ingreso  = Integer.parseInt(Integer.toString(ingreso)+valorSeleccionado);
+        }
+               
+        if (opSeleccionada == null){
+            mantisa  = mantisa + valorSeleccionado;
+        }
+        else{
+            mantisa = mantisa + opSeleccionada;
+            setOp(opSeleccionada);
+        }
+        
+        UIViewRoot uIViewRoot = facesContext.getViewRoot();
+        UIInput ingresoInputText = (UIInput)uIViewRoot.findComponent("frmCalculadora:txtIngreso");
+        UIInput mantisaInputText = (UIInput)uIViewRoot.findComponent("frmCalculadora:txtMantisa");
+        ingresoInputText.setValue(ingreso);
+        ingresoInputText.setSubmittedValue(ingreso);
+        mantisaInputText.setValue(mantisa);
+        mantisaInputText.setSubmittedValue(mantisa);
+        facesContext.renderResponse();
+        
+        
+        if (valorSeleccionado == null){
+            setOperando1(ingreso);
+            ingreso = 0;
+        }
+        
+        if (opSeleccionada == null){
+            setOperando2(ingreso);
+        }
+        
+    }
+    /*
+    public void registrarValorSeleccionado(){
+        FacesContext facesContext= FacesContext.getCurrentInstance();
+        String valorSeleccionado = facesContext.
+                getExternalContext().getRequestParameterMap().
+                get("valorPresionado");
+        
+        mantisa  = mantisa + valorSeleccionado;
+        UIViewRoot uIViewRoot = facesContext.getViewRoot();
+        UIInput mantisaInputText = (UIInput)uIViewRoot.findComponent("frmCalculadora:txtMantisa");
+        mantisaInputText.setValue(mantisa);
+        mantisaInputText.setSubmittedValue(mantisa);
+        facesContext.renderResponse();
+    }*/
+    
+    public void realizarOperacion(){       
+        FacesContext facesContext= FacesContext.getCurrentInstance();
+        String resultadoFinal = facesContext.
+                getExternalContext().getRequestParameterMap().
+                get("valorResultado");
+        int resultado = 0;
+        switch (getOp()) {
+            case ("+"):
+                resultado  = getOperando1() + getOperando2();
+                break;
+            case ("-"):
+                resultado  = getOperando1() - getOperando2();
+                break;
+            case ("x"):
+                resultado  = getOperando1() * getOperando2();
+                break;
+            case ("/"):
+                if (getOperando2() == 0) {
+                    mantisa = "ERROR!: No se puede realizar division por cero";
+                } else {
+                    resultado  = getOperando1() / getOperando2();
+                }
+                break;
+            case ("^"):
+                resultado  = (int) Math.pow(getOperando1() , getOperando2());
+            default:
+                break;
+        }
+                
+        mantisa = mantisa + resultadoFinal + Integer.toString(resultado);
+        UIViewRoot uIViewRoot = facesContext.getViewRoot();
+        UIInput ingresoInputText = (UIInput)uIViewRoot.findComponent("frmCalculadora:txtIngreso");
+        UIInput mantisaInputText = (UIInput)uIViewRoot.findComponent("frmCalculadora:txtMantisa");
+        ingresoInputText.setValue(resultado);
+        ingresoInputText.setSubmittedValue(resultado);
+        mantisaInputText.setValue(mantisa);
+        mantisaInputText.setSubmittedValue(mantisa);
+        facesContext.renderResponse();
+    }
+    
+    public void borrarDatos(){
+        mantisa = "";
+        ingreso = 0;
+        FacesContext facesContext= FacesContext.getCurrentInstance();
+        UIViewRoot uIViewRoot = facesContext.getViewRoot();
+        UIInput ingresoInputText = (UIInput)uIViewRoot.findComponent("frmCalculadora:txtIngreso");
+        UIInput mantisaInputText = (UIInput)uIViewRoot.findComponent("frmCalculadora:txtMantisa");
+        ingresoInputText.setValue(ingreso);
+        ingresoInputText.setSubmittedValue(ingreso);
+        mantisaInputText.setValue(mantisa);
+        mantisaInputText.setSubmittedValue(mantisa);
+        facesContext.renderResponse();
+    }
+    
+    /**
+     * @return the mantisa
+     */
     public String getMantisa() {
         return mantisa;
     }
 
+    /**
+     * @param mantisa the mantisa to set
+     */
     public void setMantisa(String mantisa) {
         this.mantisa = mantisa;
     }
     
-    public CalculadoraFormBean() {
-        calculadora = new Calculadora();
+        /**
+     * @return the ingreso
+     */
+    public int getIngreso() {
+        return ingreso;
     }
 
-    public Calculadora getCalculadora() {
-        return calculadora;
+    /**
+     * @param ingreso the ingreso to set
+     */
+    public void setIngreso(int ingreso) {
+        this.ingreso = ingreso;
     }
 
-    public void setCalculadora(Calculadora calculadora) {
-        this.calculadora = calculadora;
+    /**
+     * @return the operando1
+     */
+    public int getOperando1() {
+        return operando1;
     }
-    public void registrarValorBoton(){
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        String valorSeleccionado = facesContext.getExternalContext().
-                                   getRequestParameterMap().get("valorPresionado");
-        mantisa = mantisa + valorSeleccionado;
+
+    /**
+     * @param operando1 the operando1 to set
+     */
+    public void setOperando1(int operando1) {
+        this.operando1 = operando1;
     }
-    public void realizarOperacion(){
-        double primerNumero = 0;
-        double segundoNumero = 0;
-        char operadorSeleccionado = ' ';
-        for(int i=0;i<mantisa.length();i++){
-            char caracterExtraido = mantisa.charAt(i);
-            if(caracterExtraido == '+' ||
-               (caracterExtraido == '-' && i!= 0) ||
-               caracterExtraido == '*' ||
-               caracterExtraido == '/' ||
-               caracterExtraido == '^'){
-                primerNumero = Double.parseDouble(mantisa.substring(0, i));
-                segundoNumero = Double.parseDouble(mantisa.substring(i+mantisa.length()));
-                operadorSeleccionado = caracterExtraido;
-            }
-        }
-        
-        double result=0;
-        switch(operadorSeleccionado){
-            case '+':{
-                result=calculadora.suma(primerNumero, segundoNumero);
-                break;
-            }
-            case '-' :{ 
-                result=calculadora.restar(primerNumero, segundoNumero);
-                break;
-            } 
-            case '*' :{
-                result=calculadora.multiplicar(primerNumero, segundoNumero);
-            }
-            case '/': {
-                result=calculadora.dividir(primerNumero, segundoNumero);
-            }
-            case '^': {
-                result=calculadora.potenciar(primerNumero, segundoNumero);
-            }
-           }
-       
-        mantisa = mantisa + "=" + result;
+
+    /**
+     * @return the operando2
+     */
+    public int getOperando2() {
+        return operando2;
     }
-    public void borrar (){
-        mantisa = " ";
+
+    /**
+     * @param operando2 the operando2 to set
+     */
+    public void setOperando2(int operando2) {
+        this.operando2 = operando2;
     }
+
+    /**
+     * @return the op
+     */
+    public String getOp() {
+        return op;
+    }
+
+    /**
+     * @param op the op to set
+     */
+    public void setOp(String op) {
+        this.op = op;
+    }   
+    
 }
