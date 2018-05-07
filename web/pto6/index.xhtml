@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Lista de coches</title>
+    </h:head>
+    <h:body>
+        <p:panel id="pnlMostrarCoche" header="Gestion de Coches">
+                
+            <p:dataTable id="dtbValoresCoche" var="car" value="#{cocheFormBean.listaCoches}">
+                <p:column>
+                <h:outputLabel id="lblPatente" value=" Patente: #{cocheFormBean.coche.patente}" />
+                </p:column>
+                <p:column>
+                <h:outputLabel id="lblMarca" value=" Nombre: #{cocheFormBean.coche.marca}" />
+                </p:column>
+                <p:column>
+                <h:outputLabel id="lblModelo" value="Apellido: #{cocheFormBean.coche.modelo}" />
+                </p:column>
+                <p:column>
+                <h:outputLabel id="lblColor" value="Materia: #{cocheFormBean.coche.color}" />
+                </p:column>
+                <p:column>
+                <h:outputLabel id="lblCombustible" value="Materia: #{cocheFormBean.coche.combustible}" />
+                </p:column>
+            </p:dataTable>
+            <p:commandButton onclick="PF('dlg2').show();" update="pnlIngresoCoche" value="Mostrar">
+                        
+            </p:commandButton>
+        </p:panel>
+        <p:dialog id="dlgDatosProfesor" header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">
+            <p:panelGrid id="grdCoche" columns="1">
+                    
+                
+                    <p:outputLabel id="lblPatente" value="Patente">
+                    </p:outputLabel>
+                    <p:inputText id="txtPatente" value="#{cocheFormBean.coche.patente}">
+                    </p:inputText>
+                    
+                    <p:outputLabel id="lblMarca" value="Marca"></p:outputLabel>
+                    <p:inputText id="txtMarca" value="#{cocheFormBean.coche.marca}">
+                    </p:inputText>
+                    
+                    <p:outputLabel id="lblModelo" value="Modelo"></p:outputLabel>
+                    <p:inputText id="txtModelo" value="#{cocheFormBean.coche.modelo}">
+                    </p:inputText>
+                    
+                    <p:outputLabel id="lblColor" value="Color"></p:outputLabel>
+                    <p:inputText id="txtColor" value="#{cocheFormBean.coche.color}">
+                    </p:inputText>
+            </p:panelGrid>
+        </p:dialog>
+    </h:body>
+</html>
+
