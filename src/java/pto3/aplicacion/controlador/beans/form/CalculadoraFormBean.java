@@ -89,5 +89,4 @@ public class CalculadoraFormBean implements Serializable{
     public void borrar (){
         mantisa = " ";
     }
-    
 }
